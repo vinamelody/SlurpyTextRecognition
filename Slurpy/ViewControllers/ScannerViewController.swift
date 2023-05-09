@@ -78,6 +78,19 @@ class ScannerViewController: UIViewController {
     alertHost?.view.removeFromSuperview()
     alertHost = nil
   }
+  
+  func uninstallDataScanner() {
+    guard let dataScanner else { return }
+    dataScanner.stopScanning()
+    dataScanner.view.removeFromSuperview()
+    dataScanner.removeFromParent()
+    self.dataScanner = nil
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    uninstallDataScanner()
+  }
 }
 
 extension ScannerViewController: DataScannerViewControllerDelegate {

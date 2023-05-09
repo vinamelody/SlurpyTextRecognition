@@ -20,6 +20,7 @@
 		AD8AF9A528E0F4E400BD8322 /* TransientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8AF9A428E0F4E400BD8322 /* TransientItem.swift */; };
 		ADA560242905996300B74A2B /* WAV_Jinja.wav in Resources */ = {isa = PBXBuildFile; fileRef = ADA560232905996300B74A2B /* WAV_Jinja.wav */; };
 		ADC3E8FD28FC305300074816 /* StoredItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC3E8FC28FC305300074816 /* StoredItem.swift */; };
+		BE08C4512A09F13B000738EC /* Highlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE08C4502A09F13B000738EC /* Highlighter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		AD8C042D28E0F21B006EE1E4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADA560232905996300B74A2B /* WAV_Jinja.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WAV_Jinja.wav; sourceTree = "<group>"; };
 		ADC3E8FC28FC305300074816 /* StoredItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredItem.swift; sourceTree = "<group>"; };
+		BE08C4502A09F13B000738EC /* Highlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Highlighter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		AD8C043628E98F9B006EE1E4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BE08C4502A09F13B000738EC /* Highlighter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				185CB1FC23C78CE6009F7571 /* AppDelegate.swift in Sources */,
 				AD2D33B228E0ED210059E8C4 /* ScannerViewController.swift in Sources */,
 				AD8AF9A328E0F49E00BD8322 /* DataStore.swift in Sources */,
+				BE08C4512A09F13B000738EC /* Highlighter.swift in Sources */,
 				185CB1FE23C78CE6009F7571 /* SceneDelegate.swift in Sources */,
 				ADC3E8FD28FC305300074816 /* StoredItem.swift in Sources */,
 				AD24DEB228F5FF4A0028C156 /* ListViewController.swift in Sources */,

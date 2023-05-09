@@ -4,6 +4,7 @@ import VisionKit
 class ScannerViewController: UIViewController {
   
   var dataScanner: DataScannerViewController?
+  let overlay = PaintingViewController()
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -20,6 +21,7 @@ class ScannerViewController: UIViewController {
     
     addChild(scanner)
     scanner.didMove(toParent: self)
+    scanner.overlayContainerView.pinToInside(overlay.view)
     
     do {
       try scanner.startScanning()
@@ -32,25 +34,34 @@ class ScannerViewController: UIViewController {
 extension ScannerViewController: DataScannerViewControllerDelegate {
   
   func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-    
+    DataStore.shared.addThings(
+      addedItems.map { TransientItem(item: $0) },
+      allItems: allItems.map { TransientItem(item: $0) }
+    )
   }
   
   func dataScanner(_ dataScanner: DataScannerViewController, didUpdate updatedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-    
+    DataStore.shared.updateThings(
+      updatedItems.map { TransientItem(item: $0) },
+      allItems: allItems.map { TransientItem(item: $0) }
+    )
   }
   
   func dataScanner(_ dataScanner: DataScannerViewController, didRemove removedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-    
+    DataStore.shared.removeThings(
+      removedItems.map { TransientItem(item: $0) },
+      allItems: allItems.map { TransientItem(item: $0) }
+    )
   }
   
   func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
-    
+    DataStore.shared.keepItem(TransientItem(item: item).toStoredItem())
   }
 }
 
 extension DataScannerViewController {
   static func makeDatascanner(delegate: DataScannerViewControllerDelegate) -> DataScannerViewController {
-    let scanner = DataScannerViewController(recognizedDataTypes: [.text()], isGuidanceEnabled: true, isHighlightingEnabled: true)
+    let scanner = DataScannerViewController(recognizedDataTypes: [.text()], isGuidanceEnabled: true, isHighlightingEnabled: false)
     scanner.delegate = delegate
     return scanner
   }

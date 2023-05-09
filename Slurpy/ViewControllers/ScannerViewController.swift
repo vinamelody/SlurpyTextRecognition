@@ -1,12 +1,28 @@
+import AVFoundation
+import CoreHaptics
+import SwiftUI
 import UIKit
 import VisionKit
-import SwiftUI
 
 class ScannerViewController: UIViewController {
   
   var dataScanner: DataScannerViewController?
   var alertHost: UIViewController?
   let overlay = PaintingViewController()
+  var feedbackPlayer: AVAudioPlayer?
+  
+  let hapticEngine: CHHapticEngine? = {
+    do {
+      let engine = try CHHapticEngine()
+      engine.notifyWhenPlayersFinished { _ in
+        return .stopEngine
+      }
+      return engine
+    } catch {
+      print("Haptics are not working. \(error)")
+      return nil
+    }
+  }()
   
   var isScanningSupported: Bool {
     DataScannerViewController.isSupported
@@ -118,6 +134,7 @@ extension ScannerViewController: DataScannerViewControllerDelegate {
   
   func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
     DataStore.shared.keepItem(TransientItem(item: item).toStoredItem())
+    playHapticClick()
   }
 }
 
@@ -126,5 +143,55 @@ extension DataScannerViewController {
     let scanner = DataScannerViewController(recognizedDataTypes: [.text()], isGuidanceEnabled: true, isHighlightingEnabled: false)
     scanner.delegate = delegate
     return scanner
+  }
+}
+
+extension ScannerViewController {
+  func hapticPattern() throws -> CHHapticPattern {
+    let events = [
+      CHHapticEvent(
+        eventType: .hapticTransient,
+        parameters: [],
+        relativeTime: 0,
+        duration: 0.25
+        ),
+      CHHapticEvent(
+        eventType: .hapticTransient,
+        parameters: [],
+        relativeTime: 0.25,
+        duration: 0.5)
+    ]
+    let pattern = try CHHapticPattern(events: events, parameters: [])
+    return pattern
+  }
+  
+  func playHapticClick() {
+    guard let hapticEngine else { return }
+    
+    guard UIDevice.current.userInterfaceIdiom == .phone else { return }
+    
+    do {
+      try hapticEngine.start()
+      let pattern = try hapticPattern()
+      let player = try hapticEngine.makePlayer(with: pattern)
+      try player.start(atTime: 0)
+    } catch {
+      print("Haptic error: \(error)")
+    }
+  }
+}
+
+extension ScannerViewController {
+  func playFeedbackSound() {
+    guard let url = Bundle.main.url(forResource: "WAV_Jinja", withExtension: "wav") else {
+      return
+    }
+    
+    do {
+      feedbackPlayer = try AVAudioPlayer(contentsOf: url)
+      feedbackPlayer?.play()
+    } catch {
+      print("Error playing sound: \(error)")
+    }
   }
 }

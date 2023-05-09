@@ -22,6 +22,7 @@
 		ADC3E8FD28FC305300074816 /* StoredItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC3E8FC28FC305300074816 /* StoredItem.swift */; };
 		BE08C4512A09F13B000738EC /* Highlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE08C4502A09F13B000738EC /* Highlighter.swift */; };
 		BE08C4532A0A0921000738EC /* ListOfThings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE08C4522A0A0921000738EC /* ListOfThings.swift */; };
+		BE08C4552A0A102A000738EC /* FullScreenBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE08C4542A0A102A000738EC /* FullScreenBanner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		ADC3E8FC28FC305300074816 /* StoredItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredItem.swift; sourceTree = "<group>"; };
 		BE08C4502A09F13B000738EC /* Highlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Highlighter.swift; sourceTree = "<group>"; };
 		BE08C4522A0A0921000738EC /* ListOfThings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfThings.swift; sourceTree = "<group>"; };
+		BE08C4542A0A102A000738EC /* FullScreenBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenBanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			children = (
 				BE08C4502A09F13B000738EC /* Highlighter.swift */,
 				BE08C4522A0A0921000738EC /* ListOfThings.swift */,
+				BE08C4542A0A102A000738EC /* FullScreenBanner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				185CB1FE23C78CE6009F7571 /* SceneDelegate.swift in Sources */,
 				ADC3E8FD28FC305300074816 /* StoredItem.swift in Sources */,
 				AD24DEB228F5FF4A0028C156 /* ListViewController.swift in Sources */,
+				BE08C4552A0A102A000738EC /* FullScreenBanner.swift in Sources */,
 				AD8AF9A528E0F4E400BD8322 /* TransientItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,10 +1,20 @@
 import UIKit
 import VisionKit
+import SwiftUI
 
 class ScannerViewController: UIViewController {
   
   var dataScanner: DataScannerViewController?
+  var alertHost: UIViewController?
   let overlay = PaintingViewController()
+  
+  var isScanningSupported: Bool {
+    DataScannerViewController.isSupported
+  }
+  
+  var isScanningAvailable: Bool {
+    DataScannerViewController.isAvailable
+  }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -13,6 +23,15 @@ class ScannerViewController: UIViewController {
   
   func installDataScanner() {
     guard dataScanner == nil else { return }
+    
+    guard isScanningSupported else {
+      installNoScanOverlay()
+      return
+    }
+    guard isScanningAvailable else {
+      installNoPermissionOverlay()
+      return
+    }
     
     let scanner = DataScannerViewController.makeDatascanner(delegate: self)
     dataScanner = scanner
@@ -28,6 +47,36 @@ class ScannerViewController: UIViewController {
     } catch {
       print("Error: Unable to start scan. \(error)")
     }
+  }
+  
+  func installNoScanOverlay() {
+    let scanNotSupported = FullScreenBanner(
+      systemImageName: "exclamationmark.octagon.fill",
+      mainText: "Scanner not supported on this device",
+      detailText: "You need a device with a camera and an A12 Bionic processor or better (Late 2017)",
+      backgroundColor: .red)
+    installOverlay(fullScreenBanner: scanNotSupported)
+  }
+  
+  func installNoPermissionOverlay() {
+    let noCameraPermission = FullScreenBanner(
+      systemImageName: "video.slash",
+      mainText: "Camera permission not granted",
+      detailText: "Go to Settings to grant permission to use the camera",
+      backgroundColor: .orange)
+    installOverlay(fullScreenBanner: noCameraPermission)
+  }
+  
+  private func installOverlay(fullScreenBanner: FullScreenBanner) {
+    cleanHost()
+    let host = UIHostingController(rootView: fullScreenBanner)
+    view.pinToInside(host.view)
+    alertHost = host
+  }
+  
+  func cleanHost() {
+    alertHost?.view.removeFromSuperview()
+    alertHost = nil
   }
 }
 
